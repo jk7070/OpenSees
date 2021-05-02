@@ -83,6 +83,7 @@ extern void *OPS_TDConcreteMC10(void); //ntosic
 extern void *OPS_TDConcreteMC10NL(void); //ntosic
 extern void *OPS_ElasticMaterial(void);
 extern void *OPS_ElasticPPMaterial(void);
+extern void* OPS_ElasticPPcpp(void);
 extern void *OPS_EPPGapMaterial(void);
 extern void *OPS_ParallelMaterial(void);
 extern void *OPS_SeriesMaterial(void);
@@ -880,6 +881,14 @@ TclModelBuilderUniaxialMaterialCommand (ClientData clientData, Tcl_Interp *inter
 	theMaterial = (UniaxialMaterial *)theMat;
       else 
 	return TCL_ERROR;
+    }
+
+    else if (strcmp(argv[1], "ElasticPPcpp") == 0) {
+    void* theMat = OPS_ElasticPPcpp();
+    if (theMat != 0)
+        theMaterial = (UniaxialMaterial*)theMat;
+    else
+        return TCL_ERROR;
     }
     
     else if (strcmp(argv[1],"ElasticPPGap") == 0) {
